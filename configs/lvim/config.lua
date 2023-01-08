@@ -1,5 +1,5 @@
 --[[
-lvim is the global options object
+lvim is the global options objectqute
 
 Linters should be
 filled in as strings with either
@@ -8,10 +8,16 @@ an executable
 ]]
 -- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
 
+vim.opt.shiftwidth = 4
+vim.opt.numberwidth = 4
+vim.opt.tabstop = 4
+vim.opt.expandtab = true
+vim.opt.relativenumber = true
+
 -- general
 lvim.log.level = "warn"
 lvim.format_on_save.enabled = false
-lvim.colorscheme = "lunar"
+lvim.colorscheme = "carbonfox"
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
 
@@ -19,6 +25,17 @@ lvim.colorscheme = "lunar"
 lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
+
+-- custom keymappings
+lvim.builtin.which_key.mappings["Lh"] = {":checkhealth<cr>", "Check Health"}
+lvim.builtin.which_key.mappings["e"] = {":NvimTreeFocus<cr>", "Open File Explorer"}
+lvim.builtin.which_key.mappings["o"] = {
+    name = "Open",
+    e = { ":NvimTreeToggle<cr>", "Open/Close File Explorer"}
+}
+lvim.keys.normal_mode["|"] = ":vsplit<CR>"
+lvim.keys.normal_mode["-"] = ":split<CR>"
+
 -- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 -- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 -- unmap a default keymapping
@@ -163,12 +180,19 @@ lvim.builtin.treesitter.highlight.enable = true
 -- }
 
 -- Additional Plugins
--- lvim.plugins = {
---     {
---       "folke/trouble.nvim",
---       cmd = "TroubleToggle",
---     },
--- }
+lvim.plugins = {
+    -- https://github.com/folke/trouble.nvim
+    {"folke/trouble.nvim", cmd = "TroubleToggle"},
+
+    -- https://github.com/EdenEast/nightfox.nvim
+    {"EdenEast/nightfox.nvim"},
+
+    -- https://github.com/nvim-telescope/telescope-file-browser.nvim
+    {"nvim-telescope/telescope-file-browser.nvim"}
+}
+
+
+-- require("telescope").load_extension "file_browser"
 
 -- Autocommands (https://neovim.io/doc/user/autocmd.html)
 -- vim.api.nvim_create_autocmd("BufEnter", {
