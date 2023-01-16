@@ -9,6 +9,7 @@ set fish_greeting                                 # Supresses fish's intro messa
 set TERM "xterm-256color"                         # Sets the terminal type
 set EDITOR "nvim"                                 # $EDITOR use Emacs in terminal
 set VISUAL "nvim"                                 # $VISUAL use Emacs in GUI mode
+set TEXINPUTS "$HOME/dev/gatech/ml4t/jdf/"
 
 ### "nvim" as manpager
 set -x MANPAGER "nvim -c 'set ft=man' -"
@@ -331,3 +332,9 @@ starship init fish | source
 # navigation shortcuts
 alias ndev="cd $HOME/dev"
 alias nconfig="cd $HOME/.config"
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+eval /home/pmaxwell/anaconda3/bin/conda "shell.fish" "hook" $argv | source
+# <<< conda initialize <<<
+
