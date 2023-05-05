@@ -7,12 +7,22 @@ USER_CONFIG_DIR=$HOME/.config
 link_config () {
     echo ""
     PROG_CONFIG_DIR=$USER_CONFIG_DIR/$1
-    rm --recursive $PROG_CONFIG_DIR
-    ln --verbose --symbolic $SCRIPT_DIR/configs/$1 $PROG_CONFIG_DIR
+    rm -r $PROG_CONFIG_DIR
+    ln -v -s $SCRIPT_DIR/configs/$1 $PROG_CONFIG_DIR
     echo "Linked $1 config"
 }
 
+
+if [ ! -z "$1" ]
+then
+    link_config "$1"
+    exit 1
+fi
+
+
 # this is used for other local files which don't need to be captured in dotfiles
+# for example, included below is a fish.config file which is not tracked by git
+# but may contain OS specific shortcuts
 mkdir $HOME/.config/local
 touch $HOME/.config/local/fish.config
 
@@ -25,3 +35,4 @@ link_config "lvim"
 link_config "qutebrowser"
 link_config "xmobar"
 link_config "xmonad"
+link_config "tmux"
