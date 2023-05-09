@@ -27,11 +27,7 @@ mkdir $HOME/.config/local
 touch $HOME/.config/local/fish.config
 
 link_config "alacritty"
-link_config "awesome"
-link_config "doom"
 link_config "fish"
-link_config "i3"
-link_config "lvim"
 link_config "qutebrowser"
 link_config "xmobar"
 link_config "xmonad"

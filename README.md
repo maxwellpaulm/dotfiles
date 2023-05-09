@@ -1,4 +1,3 @@
-
 # Paul's Dot Files
 
 ### How to Install
