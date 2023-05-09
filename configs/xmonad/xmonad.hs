@@ -8,7 +8,6 @@ import qualified XMonad.StackSet as W
     -- Actions
 import XMonad.Actions.CopyWindow (kill1)
 import XMonad.Actions.CycleWS (Direction1D(..), moveTo, shiftTo, WSType(..), nextScreen, prevScreen)
-import XMonad.Actions.GridSelect
 import XMonad.Actions.MouseResize
 import XMonad.Actions.Promote
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
@@ -104,7 +103,6 @@ windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace
 
 myStartupHook :: X ()
 myStartupHook = do
-  spawnOnce (mySoundPlayer ++ startupSound)
   spawn "killall conky"   -- kill current conky on each restart
   spawn "killall trayer"  -- kill current trayer on each restart
 
@@ -115,103 +113,8 @@ myStartupHook = do
 
   spawn ("sleep 2 && conky -c $HOME/.config/conky/xmonad/" ++ colorScheme ++ "-01.conkyrc")
   spawn ("sleep 2 && trayer --edge top --align right --widthtype request --padding 6 --SetDockType true --SetPartialStrut true --expand true --monitor 1 --transparent true --alpha 0 " ++ colorTrayer ++ " --height 22")
-
-  -- spawnOnce "xargs xwallpaper --stretch < ~/.cache/wall"
-  -- spawnOnce "~/.fehbg &"  -- set last saved feh wallpaper
   spawnOnce "feh --randomize --bg-fill /usr/share/wallpapers/*"  -- feh set random wallpaper
-  -- spawnOnce "nitrogen --restore &"   -- if you prefer nitrogen to feh
   setWMName "LG3D"
-
-myNavigation :: TwoD a (Maybe a)
-myNavigation = makeXEventhandler $ shadowWithKeymap navKeyMap navDefaultHandler
- where navKeyMap = M.fromList [
-          ((0,xK_Escape), cancel)
-         ,((0,xK_Return), select)
-         ,((0,xK_slash) , substringSearch myNavigation)
-         ,((0,xK_Left)  , move (-1,0)  >> myNavigation)
-         ,((0,xK_h)     , move (-1,0)  >> myNavigation)
-         ,((0,xK_Right) , move (1,0)   >> myNavigation)
-         ,((0,xK_l)     , move (1,0)   >> myNavigation)
-         ,((0,xK_Down)  , move (0,1)   >> myNavigation)
-         ,((0,xK_j)     , move (0,1)   >> myNavigation)
-         ,((0,xK_Up)    , move (0,-1)  >> myNavigation)
-         ,((0,xK_k)     , move (0,-1)  >> myNavigation)
-         ,((0,xK_y)     , move (-1,-1) >> myNavigation)
-         ,((0,xK_i)     , move (1,-1)  >> myNavigation)
-         ,((0,xK_n)     , move (-1,1)  >> myNavigation)
-         ,((0,xK_m)     , move (1,-1)  >> myNavigation)
-         ,((0,xK_space) , setPos (0,0) >> myNavigation)
-         ]
-       navDefaultHandler = const myNavigation
-
-myColorizer :: Window -> Bool -> X (String, String)
-myColorizer = colorRangeFromClassName
-                (0x28,0x2c,0x34) -- lowest inactive bg
-                (0x28,0x2c,0x34) -- highest inactive bg
-                (0xc7,0x92,0xea) -- active bg
-                (0xc0,0xa7,0x9a) -- inactive fg
-                (0x28,0x2c,0x34) -- active fg
-
--- gridSelect menu layout
-mygridConfig :: p -> GSConfig Window
-mygridConfig colorizer = (buildDefaultGSConfig myColorizer)
-    { gs_cellheight   = 40
-    , gs_cellwidth    = 200
-    , gs_cellpadding  = 6
-    , gs_navigate    = myNavigation
-    , gs_originFractX = 0.5
-    , gs_originFractY = 0.5
-    , gs_font         = myFont
-    }
-
-spawnSelected' :: [(String, String)] -> X ()
-spawnSelected' lst = gridselect conf lst >>= flip whenJust spawn
-    where conf = def
-                   { gs_cellheight   = 40
-                   , gs_cellwidth    = 180
-                   , gs_cellpadding  = 6
-                   , gs_originFractX = 0.5
-                   , gs_originFractY = 0.5
-                   , gs_font         = myFont
-                   }
-
-runSelectedAction' :: GSConfig (X ()) -> [(String, X ())] -> X ()
-runSelectedAction' conf actions = do
-    selectedActionM <- gridselect conf actions
-    case selectedActionM of
-        Just selectedAction -> selectedAction
-        Nothing -> return ()
-
-myScratchPads :: [NamedScratchpad]
-myScratchPads = [ NS "terminal" spawnTerm findTerm manageTerm
-                , NS "mocp" spawnMocp findMocp manageMocp
-                , NS "calculator" spawnCalc findCalc manageCalc
-                ]
-  where
-    spawnTerm  = myTerminal ++ " -t scratchpad"
-    findTerm   = title =? "scratchpad"
-    manageTerm = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w
-    spawnMocp  = myTerminal ++ " -t mocp -e mocp"
-    findMocp   = title =? "mocp"
-    manageMocp = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.9
-                 w = 0.9
-                 t = 0.95 -h
-                 l = 0.95 -w
-    spawnCalc  = "qalculate-gtk"
-    findCalc   = className =? "Qalculate-gtk"
-    manageCalc = customFloating $ W.RationalRect l t w h
-               where
-                 h = 0.5
-                 w = 0.4
-                 t = 0.75 -h
-                 l = 0.70 -w
 
 --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
 mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spacing l a
@@ -322,19 +225,7 @@ myLayoutHook = avoidStruts
                                            ||| tallAccordion
                                            ||| wideAccordion
 
--- myWorkspaces = [" 1 ", " 2 ", " 3 ", " 4 ", " 5 ", " 6 ", " 7 ", " 8 ", " 9 "]
 myWorkspaces = [" dev ", " www ", " sys ", " doc ", " vbox ", " chat ", " mus ", " vid ", " gfx "]
--- myWorkspaces =
---         " 1 : <fn=2>\xf111</fn> " :
---         " 2 : <fn=2>\xf1db</fn> " :
---         " 3 : <fn=2>\xf192</fn> " :
---         " 4 : <fn=2>\xf025</fn> " :
---         " 5 : <fn=2>\xf03d</fn> " :
---         " 6 : <fn=2>\xf1e3</fn> " :
---         " 7 : <fn=2>\xf07b</fn> " :
---         " 8 : <fn=2>\xf21b</fn> " :
---         " 9 : <fn=2>\xf21e</fn> " :
---         []
 myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
 
 clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
@@ -365,13 +256,7 @@ myManageHook = composeAll
   , className =? "VirtualBox Manager" --> doShift  ( myWorkspaces !! 4 )
   , (className =? "firefox" <&&> resource =? "Dialog") --> doFloat  -- Float Firefox Dialog
   , isFullscreen -->  doFullFloat
-  ] <+> namedScratchpadManageHook myScratchPads
-
-soundDir = "/opt/dtos-sounds/" -- The directory that has the sound files
-
-startupSound  = soundDir ++ "startup-01.mp3"
-shutdownSound = soundDir ++ "shutdown-01.mp3"
-dmenuSound    = soundDir ++ "menu-01.mp3"
+  ] 
 
 subtitle' ::  String -> ((KeyMask, KeySym), NamedAction)
 subtitle' x = ((0,0), NamedAction $ map toUpper
@@ -393,10 +278,10 @@ myKeys c =
   subKeys "Xmonad Essentials"
   [ ("M-C-r", addName "Recompile XMonad"       $ spawn "xmonad --recompile")
   , ("M-S-r", addName "Restart XMonad"         $ sequence_ [spawn "xmonad --restart", spawn "feh --randomize --bg-fill /usr/share/wallpapers/*"])
-  , ("M-S-q", addName "Quit XMonad"            $ sequence_ [spawn (mySoundPlayer ++ shutdownSound), io exitSuccess])
+  , ("M-S-q", addName "Quit XMonad"            $ io exitSuccess)
   , ("M-S-c", addName "Kill focused window"    $ kill1)
   , ("M-S-a", addName "Kill all windows on WS" $ killAll)
-  , ("M-S-<Return>", addName "Run prompt"      $ sequence_ [spawn (mySoundPlayer ++ dmenuSound), spawn "~/.local/bin/dm-run"])
+  , ("M-S-<Return>", addName "Run prompt"      $ spawn "~/.local/bin/dm-run")
   , ("M-S-b", addName "Toggle bar show/hide"   $ sendMessage ToggleStruts)
   , ("M-/", addName "DTOS Help"                $ spawn "~/.local/bin/dtos-help")]
 
@@ -427,11 +312,11 @@ myKeys c =
   , ("M-S-<Page_Down>", addName "Move window to prev WS" $ shiftTo Prev nonNSP >> moveTo Prev nonNSP)]
 
   ^++^ subKeys "Window navigation"
-  [ ("M-j", addName "Move focus to next window"                $ windows W.focusDown)
-  , ("M-k", addName "Move focus to prev window"                $ windows W.focusUp)
+  [ ("M-k", addName "Move focus to next window"                $ windows W.focusDown)
+  , ("M-l", addName "Move focus to prev window"                $ windows W.focusUp)
   , ("M-m", addName "Move focus to master window"              $ windows W.focusMaster)
-  , ("M-S-j", addName "Swap focused window with next window"   $ windows W.swapDown)
-  , ("M-S-k", addName "Swap focused window with prev window"   $ windows W.swapUp)
+  , ("M-S-k", addName "Swap focused window with next window"   $ windows W.swapDown)
+  , ("M-S-l", addName "Swap focused window with prev window"   $ windows W.swapUp)
   , ("M-S-m", addName "Swap focused window with master window" $ windows W.swapMaster)
   , ("M-<Backspace>", addName "Move focused window to master"  $ promote)
   , ("M-S-,", addName "Rotate all windows except master"       $ rotSlavesDown)
@@ -466,10 +351,10 @@ myKeys c =
 
   -- Increase/decrease spacing (gaps)
   ^++^ subKeys "Window spacing (gaps)"
-  [ ("C-M1-j", addName "Decrease window spacing" $ decWindowSpacing 4)
-  , ("C-M1-k", addName "Increase window spacing" $ incWindowSpacing 4)
-  , ("C-M1-h", addName "Decrease screen spacing" $ decScreenSpacing 4)
-  , ("C-M1-l", addName "Increase screen spacing" $ incScreenSpacing 4)]
+  [ ("C-M1-k", addName "Decrease window spacing" $ decWindowSpacing 4)
+  , ("C-M1-l", addName "Increase window spacing" $ incWindowSpacing 4)
+  , ("C-M1-j", addName "Decrease screen spacing" $ decScreenSpacing 4)
+  , ("C-M1-;", addName "Increase screen spacing" $ incScreenSpacing 4)]
 
   -- Increase/decrease windows in the master pane or the stack
   ^++^ subKeys "Increase/decrease windows in master pane or the stack"
@@ -481,10 +366,10 @@ myKeys c =
   -- Sublayouts
   -- This is used to push windows to tabbed sublayouts, or pull them out of it.
   ^++^ subKeys "Sublayouts"
-  [ ("M-C-h", addName "pullGroup L"           $ sendMessage $ pullGroup L)
-  , ("M-C-l", addName "pullGroup R"           $ sendMessage $ pullGroup R)
-  , ("M-C-k", addName "pullGroup U"           $ sendMessage $ pullGroup U)
-  , ("M-C-j", addName "pullGroup D"           $ sendMessage $ pullGroup D)
+  [ ("M-C-j", addName "pullGroup L"           $ sendMessage $ pullGroup L)
+  , ("M-C-;", addName "pullGroup R"           $ sendMessage $ pullGroup R)
+  , ("M-C-l", addName "pullGroup U"           $ sendMessage $ pullGroup U)
+  , ("M-C-k", addName "pullGroup D"           $ sendMessage $ pullGroup D)
   , ("M-C-m", addName "MergeAll"              $ withFocused (sendMessage . MergeAll))
   
   -- , ("M-C-u", addName "UnMerge"               $ withFocused (sendMessage . UnMerge))
