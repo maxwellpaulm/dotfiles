@@ -33,3 +33,6 @@ link_config "xmobar"
 link_config "xmonad"
 link_config "tmux"
 link_config "ranger"
+
+# link wallpaper directory to /usr/share/wallpapers, this is used in the xmonad setup
+sudo ln -v -s $HOME/dev/wallpapers /usr/share/wallpapers
