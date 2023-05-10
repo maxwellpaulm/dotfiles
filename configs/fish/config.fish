@@ -1,5 +1,5 @@
 # if on a mac, set the shellenv for homebrew
-if type -q $homebrew 
+if type -q brew 
     eval "$(/opt/homebrew/bin/brew shellenv)"
 end
 
