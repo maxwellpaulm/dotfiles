@@ -579,7 +579,7 @@ schemes:
 # *SolarizedDark
 # *TomorrowNight
 
-colors: *DoomOne
+colors: *TomorrowNight
 
 #######################################
 ##       END OF COLOR SCHEMES        ##
@@ -598,6 +598,7 @@ colors: *DoomOne
 #   - EaseOut
 #   - EaseOutSine
 #   - EaseOutQuad
+    # layout.Bsp(**layout_theme),
 #   - EaseOutCubic
 #   - EaseOutQuart
 #   - EaseOutQuint
