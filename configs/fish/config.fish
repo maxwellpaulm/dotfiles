@@ -7,7 +7,7 @@ end
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
-set -U fish_user_paths $HOME/.local/bin $HOME/Applications /var/lib/flatpak/exports/bin/ $fish_user_paths
+set -U fish_user_paths $HOME/.local/bin $HOME/Applications /var/lib/flatpak/exports/bin/ $fish_user_paths $HOME/.config/emacs/bin
 
 ### EXPORT ###
 set fish_greeting                                 # Supresses fish's intro message
@@ -70,9 +70,10 @@ end
 alias clear='echo -en "\x1b[2J\x1b[1;1H" ; echo; echo; seq 1 (tput cols) | sort -R | spark | lolcat; echo; echo'
 
 # vim
-alias n='nvim .'
+alias n='nvim'
 alias vim='nvim'
 alias t='tmux new-session -A -s session'
+alias e='emacsclient -c'
 
 # Changing "ls" to "exa"
 alias ls='exa -al --color=always --group-directories-first' # my preferred listing
