@@ -1,19 +1,22 @@
-
 if status is-interactive
 and not set -q ZELLIJ
     exec zellij attach --create default
 end
 
 # if on a mac, set the shellenv for homebrew
-if type -q brew 
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+if test (uname) = "Linux"
+    echo "Loading Fish for Linux"
+else
+    echo "Loading Fish for MacOS"
+    if ! command -v brew &> /dev/null then
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    end
 end
-
 ### ADDING TO THE PATH
 # First line removes the path; second line sets it.  Without the first line,
 # your path gets massive and fish becomes very slow.
 set -e fish_user_paths
-set -U fish_user_paths $HOME/.local/bin $HOME/Applications /var/lib/flatpak/exports/bin/ $fish_user_paths $HOME/.config/emacs/bin
+set -U fish_user_paths $HOME/.local/bin $HOME/Applications $fish_user_paths
 
 ### EXPORT ###
 set fish_greeting                                 # Supresses fish's intro message
@@ -42,11 +45,11 @@ alias n='nvim'
 alias vim='nvim'
 
 # Changing "ls" to "exa"
-alias ls='exa -al --color=always --group-directories-first' # my preferred listing
-alias la='exa -a --color=always --group-directories-first'  # all files and dirs
-alias ll='exa -l --color=always --group-directories-first'  # long format
-alias lt='exa -aT --color=always --group-directories-first' # tree listing
-alias l.='exa -a | egrep "^\."'
+alias ls='lsd -al --color=always --group-directories-first' # my preferred listing
+alias la='lsd -a --color=always --group-directories-first'  # all files and dirs
+alias ll='lsd -l --color=always --group-directories-first'  # long format
+alias lt='lsd -aT --color=always --group-directories-first' # tree listing
+alias l.='lsd -a | egrep "^\."'
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
@@ -63,3 +66,4 @@ alias pscpu='ps auxf | sort -nr -k 3'
 alias ndev="cd $HOME/dev"
 alias nconfig="cd $HOME/.config"
 
+if 
