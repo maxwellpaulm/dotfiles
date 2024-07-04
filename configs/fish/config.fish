@@ -1,8 +1,8 @@
-if status is-interactive
-and not set -q ZELLIJ
-    exec zellij attach --create default
-end
-
+# if status is-interactive
+# and not set -q ZELLIJ
+#     exec zellij attach --create default
+# end
+#
 # if on a mac, set the shellenv for homebrew
 if test (uname) = "Linux"
     echo "Loading Fish for Linux"
@@ -65,5 +65,3 @@ alias pscpu='ps auxf | sort -nr -k 3'
 # navigation shortcuts
 alias ndev="cd $HOME/dev"
 alias nconfig="cd $HOME/.config"
-
-if 
