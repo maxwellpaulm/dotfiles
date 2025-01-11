@@ -174,7 +174,7 @@ history = 5000
 
 [terminal.shell]
 args = ["--login"]
-program = "/bin/fish"
+program = "fish"
 
 [window]
 dynamic_padding = false

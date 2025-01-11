@@ -82,7 +82,7 @@ local mappings = {
     ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
     ["q"] = { "<cmd>q!<CR>", "Quit" },
     ["Q"] = { "<cmd>qa!<CR>", "Quit All" },
-    ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+    ["c"] = { "<cmd>q<CR>", "Close Buffer" },
     ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
     ["f"] = {"<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>", "Find files" },
     ["g"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Grep Project" },
@@ -130,16 +130,6 @@ local mappings = {
         k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
         C = { "<cmd>Telescope commands<cr>", "Commands" },
         f = { "<cmd>Telescope file_browser<cr>", "File Browser" }
-    },
-
-    x = {
-        name = "Trouble",
-        x = { "<cmd>TroubleToggle document_diagnostics<cr>", "Trouble" },
-        w = { "<cmd>TroubleToggle workspace_diagnostics<cr>", "Workspace Diagnostics" },
-        d = { "<cmd>TroubleToggle document_diagnostics<cr>", "Document Diagnostics" },
-        l = { "<cmd>TroubleToggle loclist<cr>", "Loclist" },
-        q = { "<cmd>TroubleToggle quickfix<cr>", "Quickfix" },
-        r = { "<cmd>TroubleToggle lsp_references<cr>", "References" },
     },
 }
 

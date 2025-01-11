@@ -4,7 +4,7 @@ local term_opts = { silent = true }
 -- Shorten function name
 local keymap = function(modes, orig, mapped, opts)
     for m in modes:gmatch"." do
-        vim.api.nvim_set_keymap(m, orig, mapped, opts)
+        vim.keymap.set(m, orig, mapped, opts)
     end
 end
 
@@ -37,6 +37,17 @@ keymap("nv", "sj", "^", opts)
 keymap("n", "d;", "d$", opts)
 keymap("n", "dj", "d^", opts)
 
+local toggle_oil = function()
+  local bufnr = vim.api.nvim_win_get_buf(0)
+  local dir = require("oil").get_current_dir(bufnr)
+  if dir then
+    return require("oil").toggle_float(dir)
+  else
+    -- If there is no current directory (e.g. over ssh), just default to the current dir
+    return require("oil").toggle_float()
+  end
+end
+
 -- tab and window navigation --
 keymap("n", "cc", ":BufferPrevious<cr>", opts)
 keymap("n", "vv", ":BufferNext<cr>", opts)
@@ -44,9 +55,10 @@ keymap("n", "fj", "<C-w>h", opts)
 keymap("n", "f;", "<C-w>l", opts)
 keymap("n", "fk", "<C-w>k", opts)
 keymap("n", "fl", "<C-w>j", opts)
-keymap("n", "ff", "<cmd>NvimTreeFocus<cr>", opts)
-keymap("n", "ft", "<cmd>NvimTreeToggle<cr>", opts)
+keymap("n", "ff", toggle_oil, opts)
+keymap("n", "ft", "<cmd>terminal --float", opts)
 keymap("n", "fv", "<cmd>vsplit<cr>", opts)
+keymap("n", "fc", "<cmd>q<cr>", opts)
 keymap("n", "g;", "<C-i>", opts)
 keymap("n", "gj", "<C-o>", opts)
 
