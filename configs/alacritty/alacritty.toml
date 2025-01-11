@@ -172,7 +172,7 @@ mods = "Shift"
 [scrolling]
 history = 5000
 
-[shell]
+[terminal.shell]
 args = ["--login"]
 program = "/bin/fish"
 
@@ -187,4 +187,6 @@ instance = "Alacritty"
 
 [window.padding]
 x = 6
+
+[terminal]
 

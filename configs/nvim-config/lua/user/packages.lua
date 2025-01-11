@@ -53,6 +53,7 @@ return packer.startup(function(use)
 	-- Navigation
 	use { "nvim-tree/nvim-tree.lua", requires = { "nvim-tree/nvim-web-devicons" }, commit = "9c97e6449b0b0269bd44e1fd4857184dfa57bb4c" }
     use { "nvim-lualine/lualine.nvim", requires = { 'nvim-tree/nvim-web-devicons', opt = true } }
+    use { "stevearc/oil.nvim" }
 
 	-- Search
 	use { "nvim-telescope/telescope.nvim", requires = {'nvim-lua/plenary.nvim'}}

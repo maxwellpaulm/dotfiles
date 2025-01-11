@@ -88,20 +88,6 @@ local mappings = {
     ["g"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Grep Project" },
     ["w"] = { "<cmd>vsplit<cr>", "Vertical Split Window" },
 
-    d = {
-        name = "Debugger",
-        s = { "<cmd>DapLoadLaunchJSON<cr>", "Launch" },
-        l = { "<cmd>DapShowLog<cr>", "Log" },
-        R = { "<cmd>DapRestartFrame<cr>", "Restart Frame" },
-        c = { "<cmd>DapContinue<cr>", "Continue" },
-        i = { "<cmd>DapStepInto<cr>", "Step Into" },
-        o = { "<cmd>DapStepOver<cr>", "Step Over" },
-        d = { "<cmd>DapToggleBreakpoint<cr>", "Toggle Breakpoint" },
-        u = { "<cmd>DapStepOut<cr>", "Step Out" },
-        t = { "<cmd>DapTerminate<cr>", "Terminate" },
-        r = { "<cmd>DapToggleRepl<cr>", "Repl" },
-    },
-
     N = {
         name = "NeoVim",
         k = { "<cmd>Telescope keymaps<cr>", "View keymappings" },
