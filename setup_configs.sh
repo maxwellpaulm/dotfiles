@@ -28,11 +28,7 @@ touch $HOME/.config/local/fish.config
 
 link_config "alacritty"
 link_config "fish"
-link_config "qutebrowser"
-link_config "xmobar"
-link_config "xmonad"
 link_config "tmux"
-link_config "ranger"
+link_config "vim"
+link_config "nvim-config"
 
-# link wallpaper directory to /usr/share/wallpapers, this is used in the xmonad setup
-sudo ln -v -s $HOME/dev/wallpapers /usr/share/wallpapers
