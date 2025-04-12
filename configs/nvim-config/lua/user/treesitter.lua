@@ -26,8 +26,7 @@ configs.setup({
         "make",
         "haskell",
         "markdown",
-        "markdown_inline",
-        "org"
+        "markdown_inline"
     }, -- one of "all" or a list of languages
 	ignore_install = { "phpdoc" }, -- List of parsers to ignore installing
 	highlight = {
