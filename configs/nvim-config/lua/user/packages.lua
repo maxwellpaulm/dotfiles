@@ -65,6 +65,8 @@ return packer.startup(function(use)
 	-- Shortcuts
 	use {"folke/which-key.nvim" } -- Whichkey allows for leaderkey shortcuts
 
+    -- AI Tools
+
 	-- Automatically set up your configuration after cloning packer.nvim
 	if PACKER_BOOTSTRAP then
 		require("packer").sync()
