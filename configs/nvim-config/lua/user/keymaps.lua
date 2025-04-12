@@ -51,16 +51,19 @@ end
 -- tab and window navigation --
 keymap("n", "cc", ":BufferPrevious<cr>", opts)
 keymap("n", "vv", ":BufferNext<cr>", opts)
-keymap("n", "fj", "<C-w>h", opts)
-keymap("n", "f;", "<C-w>l", opts)
-keymap("n", "fk", "<C-w>k", opts)
-keymap("n", "fl", "<C-w>j", opts)
+keymap("n", "fj", "<C-o>", opts)
+keymap("n", "f;", "gd", opts)
+keymap("n", "fk", "<C-w>j", opts)
+keymap("n", "fl", "<C-w>l", opts)
 keymap("n", "ff", toggle_oil, opts)
 keymap("n", "ft", "<cmd>terminal --float", opts)
 keymap("n", "fv", "<cmd>vsplit<cr>", opts)
 keymap("n", "fc", "<cmd>q<cr>", opts)
 keymap("n", "g;", "<C-i>", opts)
 keymap("n", "gj", "<C-o>", opts)
+vim.keymap.set("n", "gd", vim.lsp.buf.definition, { desc = "Go to definition" })
+vim.keymap.set("n", "gr", vim.lsp.buf.references, { desc = "Go to references" })
+vim.keymap.set("n", "gi", vim.lsp.buf.implementation, { desc = "Go to implementation" })
 
 -- Resize with arrows
 keymap("n", "<S-Up>", ":resize -2<CR>", opts)
