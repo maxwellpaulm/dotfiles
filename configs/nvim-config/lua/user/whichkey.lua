@@ -131,6 +131,15 @@ local mappings = {
         C = { "<cmd>Telescope commands<cr>", "Commands" },
         f = { "<cmd>Telescope file_browser<cr>", "File Browser" }
     },
+
+    C = {
+        name = "Copilot",
+        e = { "<cmd>Copilot enable<CR>", "Enable Copilot" },
+        d = { "<cmd>Copilot disable<CR>", "Disable Copilot" },
+        s = { "<cmd>Copilot status<CR>", "Copilot Status" },
+        p = { "<cmd>Copilot panel<CR>", "Open Panel" },
+        l = { "<cmd>Copilot auth<CR>", "Login (Auth)" },
+    },
 }
 
 which_key.setup(setup)
