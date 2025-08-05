@@ -1,0 +1,63 @@
+{
+  "tools": {
+    "bash": {
+      "enabled": true,
+      "timeout": 120000,
+      "allowedCommands": ["git", "npm", "yarn", "cargo", "go", "python", "node"],
+      "blockedCommands": ["rm -rf", "sudo", "chmod 777"]
+    },
+    "edit": {
+      "enabled": true,
+      "backupFiles": true,
+      "maxFileSize": "10MB"
+    },
+    "write": {
+      "enabled": true,
+      "confirmOverwrite": true
+    },
+    "read": {
+      "enabled": true,
+      "maxFileSize": "5MB"
+    },
+    "grep": {
+      "enabled": true,
+      "maxResults": 100
+    },
+    "webSearch": {
+      "enabled": false,
+      "blockedDomains": ["example-blocked.com"]
+    },
+    "webFetch": {
+      "enabled": true,
+      "allowedDomains": ["docs.anthropic.com", "github.com"],
+      "timeout": 30000
+    }
+  },
+  "codeStyle": {
+    "indentation": "spaces",
+    "indentSize": 4,
+    "maxLineLength": 100,
+    "addComments": false,
+    "preferExistingPatterns": true
+  },
+  "behavior": {
+    "verbosity": "concise",
+    "autoCommit": false,
+    "confirmDestructiveActions": true,
+    "useProjectConventions": true
+  },
+  "memory": {
+    "enabled": true,
+    "maxEntries": 1000,
+    "retentionDays": 30
+  },
+  "ui": {
+    "colorScheme": "auto",
+    "showLineNumbers": true,
+    "highlightSyntax": true
+  },
+  "agents": {
+    "enabled": true,
+    "directory": "~/.claude/agents"
+  }
+}

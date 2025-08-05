@@ -42,14 +42,14 @@ set fish_color_param brcyan
 
 # vim
 alias n='nvim'
-alias vim='nvim'
+#alias vim='nvim'
 
 # Changing "ls" to "exa"
-alias ls='lsd -al --color=always --group-directories-first' # my preferred listing
-alias la='lsd -a --color=always --group-directories-first'  # all files and dirs
-alias ll='lsd -l --color=always --group-directories-first'  # long format
-alias lt='lsd -aT --color=always --group-directories-first' # tree listing
-alias l.='lsd -a | egrep "^\."'
+alias ls='lsd -al --color=always' # my preferred listing
+#alias la='lsd -a --color=always --group-directories-first'  # all files and dirs
+#alias ll='lsd -l --color=always --group-directories-first'  # long format
+#alias lt='lsd -aT --color=always --group-directories-first' # tree listing
+#alias l.='lsd -a | egrep "^\."'
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'

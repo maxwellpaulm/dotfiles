@@ -1,0 +1,89 @@
+{
+  "hooks": {
+    "pre-tool-call": {
+      "enabled": false,
+      "command": "echo 'About to execute tool: $CLAUDE_TOOL_NAME'",
+      "timeout": 5000,
+      "continueOnFailure": true
+    },
+    "post-tool-call": {
+      "enabled": false,
+      "command": "echo 'Completed tool: $CLAUDE_TOOL_NAME with status: $CLAUDE_TOOL_STATUS'",
+      "timeout": 5000,
+      "continueOnFailure": true
+    },
+    "pre-file-edit": {
+      "enabled": true,
+      "command": "cp \"$CLAUDE_FILE_PATH\" \"$CLAUDE_FILE_PATH.backup.$(date +%s)\"",
+      "timeout": 10000,
+      "continueOnFailure": false,
+      "description": "Create backup before editing files"
+    },
+    "post-file-edit": {
+      "enabled": true,
+      "command": "echo 'Modified file: $CLAUDE_FILE_PATH'",
+      "timeout": 5000,
+      "continueOnFailure": true,
+      "description": "Log file modifications"
+    },
+    "pre-bash-command": {
+      "enabled": true,
+      "command": "echo '[SECURITY] About to run: $CLAUDE_BASH_COMMAND' >> ~/.claude_audit.log",
+      "timeout": 5000,
+      "continueOnFailure": true,
+      "description": "Audit bash commands for security"
+    },
+    "post-bash-command": {
+      "enabled": false,
+      "command": "echo '[AUDIT] Command completed with exit code: $CLAUDE_BASH_EXIT_CODE' >> ~/.claude_audit.log",
+      "timeout": 5000,
+      "continueOnFailure": true
+    },
+    "user-prompt-submit": {
+      "enabled": false,
+      "command": "echo 'User submitted prompt at $(date)' >> ~/.claude_usage.log",
+      "timeout": 5000,
+      "continueOnFailure": true,
+      "description": "Log user interactions"
+    },
+    "session-start": {
+      "enabled": true,
+      "command": "echo '=== Claude session started at $(date) ===' >> ~/.claude_sessions.log",
+      "timeout": 5000,
+      "continueOnFailure": true,
+      "description": "Log session starts"
+    },
+    "session-end": {
+      "enabled": true,
+      "command": "echo '=== Claude session ended at $(date) ===' >> ~/.claude_sessions.log",
+      "timeout": 5000,
+      "continueOnFailure": true,
+      "description": "Log session ends"
+    },
+    "git-commit": {
+      "enabled": true,
+      "command": "git log --oneline -1 && echo 'Commit created by Claude at $(date)' >> ~/.claude_commits.log",
+      "timeout": 10000,
+      "continueOnFailure": true,
+      "description": "Log commits made by Claude"
+    },
+    "dangerous-operation": {
+      "enabled": true,
+      "command": "echo '[WARNING] Dangerous operation attempted: $CLAUDE_OPERATION' >> ~/.claude_security.log && read -p 'Continue? (y/N): ' -n 1 -r && [[ $REPLY =~ ^[Yy]$ ]]",
+      "timeout": 30000,
+      "continueOnFailure": false,
+      "description": "Confirm dangerous operations"
+    }
+  },
+  "environment": {
+    "CLAUDE_HOOK_LOG_DIR": "~/.claude/logs",
+    "CLAUDE_BACKUP_DIR": "~/.claude/backups",
+    "CLAUDE_AUDIT_ENABLED": "true"
+  },
+  "settings": {
+    "maxLogSize": "10MB",
+    "logRotation": true,
+    "retainLogs": 30,
+    "enableDebugging": false
+  }
+}
