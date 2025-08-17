@@ -20,6 +20,12 @@ link_directly () {
     echo "Linked $1 config directly"
 }
 
+link_root () {
+    echo ""
+    unlink $HOME/$2
+    ln -v -s $SCRIPT_DIR/configs/$1/$2 $HOME/$2
+    echo "Linked $1 config directly"
+}
 
 if [ ! -z "$1" ]
 then
@@ -34,10 +40,11 @@ fi
 mkdir -p $HOME/.config/local
 touch $HOME/.config/local/fish.config
 
-link_config "alacritty"
+# link_config "alacritty"
 link_directly "claude"
 link_config "fish"
 link_config "tmux"
 link_config "vim"
-link_config "nvim-config"
+link_config "nvim"
+link_root "vim" ".vimrc"
 

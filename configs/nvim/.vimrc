@@ -1,0 +1,1 @@
+/Users/paulmax/personal/dotfiles/configs/vim

@@ -12,8 +12,8 @@ white = "#e6e6e6"
 yellow = "#f4f99d"
 
 [colors.cursor]
-cursor = "CellForeground"
-text = "CellBackground"
+cursor = "#f8f8f2"
+text = "#000000"
 
 [colors.dim]
 black = "#14151b"
@@ -24,10 +24,6 @@ magenta = "#ff46b0"
 red = "#ff2222"
 white = "#e6e6d1"
 yellow = "#ebf85b"
-
-[colors.line_indicator]
-background = "None"
-foreground = "None"
 
 [colors.normal]
 black = "#000000"
@@ -53,33 +49,17 @@ foreground = "#44475a"
 
 [colors.selection]
 background = "#44475a"
-text = "CellForeground"
+text = "#f8f8f2"
 
 [colors.vi_mode_cursor]
-cursor = "CellForeground"
-text = "CellBackground"
+cursor = "#f8f8f2"
+text = "#000000"
 
 [env]
 TERM = "xterm-256color"
 
 [font]
 size = 9.0
-
-# [font.bold]
-# family = "Source Code Pro"
-# style = "Bold"
-#
-# [font.bold_italic]
-# family = "Source Code Pro"
-# style = "Bold Italic"
-#
-# [font.italic]
-# family = "Source Code Pro"
-# style = "Italic"
-#
-# [font.normal]
-# family = "Source Code Pro"
-# style = "Regular"
 
 [font.offset]
 x = 0
@@ -187,6 +167,4 @@ instance = "Alacritty"
 
 [window.padding]
 x = 6
-
-[terminal]
-
+y = 6

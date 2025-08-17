@@ -1,2 +1,3 @@
 configs/fish/fish_variables
 **/__pycache__
+**/*/*.lock
